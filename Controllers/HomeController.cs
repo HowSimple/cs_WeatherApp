@@ -3,10 +3,22 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
+using System.IO;
 using System.Web.Mvc;
+using System.Net;
+using System.Web.UI.WebControls;
+using System;
 
 namespace WeatherApp.Controllers
 {
+	public class UI
+	{
+		protected void Button_Click(Object sender, EventArgs e)
+		{
+
+
+		}
+	}
 
 	public class Coord
 	{
@@ -88,17 +100,22 @@ namespace WeatherApp.Controllers
 		private static readonly HttpClient Client = new HttpClient( );
 		public static double CurrentTemp(string zipcode)
 		{
-			return  CurrentTemp_APIcall(zipcode).Result;
+			return  CurrentTemp_APIcall(zipcode);
 
 		}
-		public static async Task<double> CurrentTemp_APIcall(string zipcode)
+
+		public static double CurrentTemp_APIcall(string zipcode)
 		{
 			string apikey = "eab00506d1f68b81e983df6b85c6e321";
 			string uri = "http://api.openweathermap.org/data/2.5/weather?zip=" + zipcode + ",US&APPID=" + apikey + "&units=imperial";
-			string json = await Client.GetStringAsync(uri);
+			//string json = await Client.GetStringAsync(uri);
+			WebClient client = new WebClient( );
+			string json = client.DownloadString(uri); 
 			var response = JsonConvert.DeserializeObject<RootObject>(json);
 
 			return response.main.temp;
+
+
 		}
 	}
 }
