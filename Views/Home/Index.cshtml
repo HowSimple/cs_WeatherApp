@@ -4,9 +4,14 @@
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
-<asp:TextBox id="zip" runat="server" />
-<br />
-<br />
 
+<br />
+<br />
+<p>
+	<asp:TextBox runat="server" ID="Zipcode" />
+	<input id="Text1" type="text" />
+	<asp:Button ID="Button1" runat="server" CommandName="Login" Text="Log in"  OnClick="Button1_Click"/>
+	
+</p>
 
 <p>The current temperature is @WeatherApp.Controllers.HomeController.CurrentTemp("64134")  F degrees.</p>
