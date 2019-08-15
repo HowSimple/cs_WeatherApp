@@ -12,12 +12,7 @@
 	<input id="Text1" type="text" />
 	<asp:Button ID="Button1" runat="server" CommandName="Login" Text="Log in" OnClick="Button1_Click" />
 
-	@using (Html.BeginForm())
-	{
-		@Html.ValidationSummary( )
-		<p>Your name: @Html.TextBoxFor(x => x.Zipcode) </p>
-		<input type="submit" value="Submit" />
-	}
+	
 	
 		
 
