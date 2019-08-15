@@ -10,8 +10,15 @@
 <p>
 	<asp:TextBox runat="server" ID="Zipcode" />
 	<input id="Text1" type="text" />
-	<asp:Button ID="Button1" runat="server" CommandName="Login" Text="Log in"  OnClick="Button1_Click"/>
-	
-</p>
+	<asp:Button ID="Button1" runat="server" CommandName="Login" Text="Log in" OnClick="Button1_Click" />
 
-<p>The current temperature is @WeatherApp.Controllers.HomeController.CurrentTemp("64134")  F degrees.</p>
+	@using (Html.BeginForm())
+	{
+		@Html.ValidationSummary( )
+		<p>Your name: @Html.TextBoxFor(x => x.Zipcode) </p>
+		<input type="submit" value="Submit" />
+	}
+	
+		
+
+	<p>The current temperature is @WeatherApp.Controllers.HomeController.CurrentTemp("64134")  F degrees.</p>
