@@ -8,18 +8,84 @@ using System.Web.Mvc;
 using System.Net;
 using System.Web.UI.WebControls;
 using System;
+using WeatherApp.Models;
 
 namespace WeatherApp.Controllers
 {
-	public class UI
+	public class HomeController : Controller
 	{
-		protected void Button1_Click(Object sender, EventArgs e)
+		[HttpGet]
+		public ActionResult Index()
 		{
+			ViewBag.Title = "";
+			return View( );
+		}
+		[HttpPost]
+		public ActionResult Index(WeatherResponse response)
+		{
+			ViewBag.Title = Request.Form["zipcode"];
+			string zipcode = Request.Form["zipcode"];
+			double temperature = CurrentTemp(zipcode);
+			ViewBag.Temperature = temperature;
+			return View( "Weather");
+		}
+
+		//public ActionResult Index(WeatherResponse response)
+		//{
+		//	ViewBag.Title = response.Zipcode;
+		//	return View( );
+		//}
+		//public ActionResult Index(WeatherResponse response)
+		//{
+
+		//	ViewBag.Message = "The temperature in" + response.Zipcode + " is " + CurrentTemp(response.Zipcode);
+		//	return View(response.Zipcode);
+		//}
+		public ActionResult About()
+		{
+			ViewBag.Message = "Your application description page.";
+
+			return View( );
+		}
+
+		public ActionResult Weather()
+		{
+			return View();
+		}
+		public ActionResult Contact()
+		{
+			ViewBag.Message = "Your contact page.";
 			
-			double 
+			return View( );
+		}
+		//private void button1_Click(object sender , EventArgs e)
+		
+			//string textBoxValue = Zipcode.Text.ToString( );
+			//SomeFunction(textBoxValue);
+		
+		
+
+		private static readonly HttpClient Client = new HttpClient( );
+		public static double CurrentTemp(string zipcode)
+		{
+			return CurrentTemp_APIcall(zipcode);
+
+		}
+
+		public static double CurrentTemp_APIcall(string zipcode)
+		{
+			string apikey = "eab00506d1f68b81e983df6b85c6e321";
+			string uri = "http://api.openweathermap.org/data/2.5/weather?zip=" + zipcode + ",US&APPID=" + apikey + "&units=imperial";
+			//string json = await Client.GetStringAsync(uri);
+			WebClient client = new WebClient( );
+			string json = client.DownloadString(uri);
+			var response = JsonConvert.DeserializeObject<RootObject>(json);
+
+			return response.main.temp;
+
+
 		}
 	}
-
 	public class Coord
 	{
 		public double lon { get; set; }
@@ -75,47 +141,5 @@ namespace WeatherApp.Controllers
 		public int cod { get; set; }
 	}
 
-	public class HomeController : Controller
-	{
-		public ActionResult Index()
-		{
-			return View( );
-		}
 
-		public ActionResult About()
-		{
-			ViewBag.Message = "Your application description page.";
-
-			return View( );
-		}
-
-		public ActionResult Contact()
-		{
-			ViewBag.Message = "Your contact page.";
-
-			return View( );
-		}
-
-
-		private static readonly HttpClient Client = new HttpClient( );
-		public static double CurrentTemp(string zipcode)
-		{
-			return  CurrentTemp_APIcall(zipcode);
-
-		}
-
-		public static double CurrentTemp_APIcall(string zipcode)
-		{
-			string apikey = "eab00506d1f68b81e983df6b85c6e321";
-			string uri = "http://api.openweathermap.org/data/2.5/weather?zip=" + zipcode + ",US&APPID=" + apikey + "&units=imperial";
-			//string json = await Client.GetStringAsync(uri);
-			WebClient client = new WebClient( );
-			string json = client.DownloadString(uri); 
-			var response = JsonConvert.DeserializeObject<RootObject>(json);
-
-			return response.main.temp;
-
-
-		}
-	}
 }
