@@ -27,20 +27,11 @@ namespace WeatherApp.Controllers
 			string zipcode = Request.Form["zipcode"];
 			double temperature = CurrentTemp(zipcode);
 			ViewBag.Temperature = temperature;
+
 			return View( "Weather");
 		}
 
-		//public ActionResult Index(WeatherResponse response)
-		//{
-		//	ViewBag.Title = response.Zipcode;
-		//	return View( );
-		//}
-		//public ActionResult Index(WeatherResponse response)
-		//{
 
-		//	ViewBag.Message = "The temperature in" + response.Zipcode + " is " + CurrentTemp(response.Zipcode);
-		//	return View(response.Zipcode);
-		//}
 		public ActionResult About()
 		{
 			ViewBag.Message = "Your application description page.";
@@ -58,13 +49,7 @@ namespace WeatherApp.Controllers
 			
 			return View( );
 		}
-		//private void button1_Click(object sender , EventArgs e)
 		
-			//string textBoxValue = Zipcode.Text.ToString( );
-			//SomeFunction(textBoxValue);
-		
-		
-
 		private static readonly HttpClient Client = new HttpClient( );
 		public static double CurrentTemp(string zipcode)
 		{
@@ -74,72 +59,25 @@ namespace WeatherApp.Controllers
 
 		public static double CurrentTemp_APIcall(string zipcode)
 		{
-			string apikey = "eab00506d1f68b81e983df6b85c6e321";
-			string uri = "http://api.openweathermap.org/data/2.5/weather?zip=" + zipcode + ",US&APPID=" + apikey + "&units=imperial";
-			//string json = await Client.GetStringAsync(uri);
-			WebClient client = new WebClient( );
-			string json = client.DownloadString(uri);
-			var response = JsonConvert.DeserializeObject<RootObject>(json);
+			try
+			{
 
-			return response.main.temp;
+				string apikey = "eab00506d1f68b81e983df6b85c6e321";
+				string uri = "http://api.openweathermap.org/data/2.5/weather?zip=" + zipcode + ",US&APPID=" + apikey + "&units=imperial";
+				//string json = await Client.GetStringAsync(uri);
+				WebClient client = new WebClient( );
+				string json = client.DownloadString(uri);
+				var response = JsonConvert.DeserializeObject<WeatherData.RootObject>(json);
 
+				return response.main.temp;
+
+			}
+			catch ( System.Net.WebException )
+			{
+				return -9999.9999;
+			}
 
 		}
 	}
-	public class Coord
-	{
-		public double lon { get; set; }
-		public double lat { get; set; }
-	}
-	public class Weather
-	{
-		public int id { get; set; }
-		public string main { get; set; }
-		public string description { get; set; }
-		public string icon { get; set; }
-	}
-	public class Main
-	{
-		public double temp { get; set; }
-		public int pressure { get; set; }
-		public int humidity { get; set; }
-		public double temp_min { get; set; }
-		public double temp_max { get; set; }
-	}
-	public class Wind
-	{
-		public double speed { get; set; }
-		public int deg { get; set; }
-	}
-	public class Clouds
-	{
-		public int all { get; set; }
-	}
-	public class Sys
-	{
-		public int type { get; set; }
-		public int id { get; set; }
-		public double message { get; set; }
-		public string country { get; set; }
-		public int sunrise { get; set; }
-		public int sunset { get; set; }
-	}
-	public class RootObject
-	{
-		public Coord coord { get; set; }
-		public List<Weather> weather { get; set; }
-		public string @base { get; set; }
-		public Main main { get; set; }
-		public int visibility { get; set; }
-		public Wind wind { get; set; }
-		public Clouds clouds { get; set; }
-		public int dt { get; set; }
-		public Sys sys { get; set; }
-		public int timezone { get; set; }
-		public int id { get; set; }
-		public string name { get; set; }
-		public int cod { get; set; }
-	}
-
 
 }

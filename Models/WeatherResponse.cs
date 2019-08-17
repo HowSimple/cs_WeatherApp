@@ -24,5 +24,5 @@ namespace WeatherApp.Models
 		public string Zipcode { get; set; }
 
 	}
-	public class 
+	
 }
