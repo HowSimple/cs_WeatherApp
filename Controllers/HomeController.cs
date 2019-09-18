@@ -9,6 +9,8 @@ using System.Net;
 using System.Web.UI.WebControls;
 using System;
 using WeatherApp.Models;
+using WeatherApp.Models;
+
 
 namespace WeatherApp.Controllers
 {
@@ -25,7 +27,9 @@ namespace WeatherApp.Controllers
 		{
 			ViewBag.Title = Request.Form["zipcode"];
 			string zipcode = Request.Form["zipcode"];
-			double temperature = CurrentTemp(zipcode);
+			WeatherContainer call = new WeatherContainer(zipcode);
+			double temperature = call.main.temp;
+			
 			ViewBag.Temperature = temperature;
 
 			return View( "Weather");
@@ -43,41 +47,10 @@ namespace WeatherApp.Controllers
 		{
 			return View();
 		}
-		public ActionResult Contact()
-		{
-			ViewBag.Message = "Your contact page.";
-			
-			return View( );
-		}
 		
-		private static readonly HttpClient Client = new HttpClient( );
-		public static double CurrentTemp(string zipcode)
-		{
-			return CurrentTemp_APIcall(zipcode);
-
-		}
-
-		public static double CurrentTemp_APIcall(string zipcode)
-		{
-			try
-			{
-
-				string apikey = "eab00506d1f68b81e983df6b85c6e321";
-				string uri = "http://api.openweathermap.org/data/2.5/weather?zip=" + zipcode + ",US&APPID=" + apikey + "&units=imperial";
-				//string json = await Client.GetStringAsync(uri);
-				WebClient client = new WebClient( );
-				string json = client.DownloadString(uri);
-				var response = JsonConvert.DeserializeObject<WeatherData.RootObject>(json);
-
-				return response.main.temp;
-
-			}
-			catch ( System.Net.WebException )
-			{
-				return -9999.9999;
-			}
-
-		}
+		
+		//private static readonly HttpClient Client = new HttpClient( );
+		
 	}
 
 }

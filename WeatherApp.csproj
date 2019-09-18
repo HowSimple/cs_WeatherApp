@@ -124,6 +124,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\IBridge.cs" />
+    <Compile Include="Models\WeatherContainer.cs" />
     <Compile Include="Models\WeatherData.cs" />
     <Compile Include="Models\WeatherResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
