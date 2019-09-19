@@ -5,13 +5,16 @@
 <h3>@ViewBag.Message</h3>
 
 
-<br />
-<br />
-<p>
+	
+<ul>
+	<li><b>Location:</b> @Model.Response.name</li>
+
+	<li><b>Temperature:</b> @Model.Response.main.temp F degrees.</li>
+	<li><b>Condition:</b> @Model.Response.weather[0].main</li>
+
+	<li><b>Humidity:</b> @Model.Response.main.humidity%</li>
+	<li><b>Wind:</b> @Model.Response.wind.speed mph </li>
 
 
-	@model WeatherApi
+</ul>
 
-
-	<p>The current  is   F degrees.</p>
-	<p>The current temperature is @Model.Response.main.temp degrees.</p>

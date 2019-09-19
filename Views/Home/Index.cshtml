@@ -5,13 +5,12 @@
 <h3>@ViewBag.Message</h3>
 
 
-<br />
-<br />
 <p>
+	
 	@using ( Html.BeginForm("Index" , "Home" , FormMethod.Post) )
 	{
 
-	<p>Your zipcode: @Html.TextBoxFor(x => x.Zipcode)</p>
+	<p>Enter your zipcode: @Html.TextBoxFor(x => x.Zipcode)</p>
 	<input type="submit" value="Submit" />
 
 }
