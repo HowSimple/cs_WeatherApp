@@ -9,7 +9,6 @@ using System.Net;
 using System.Web.UI.WebControls;
 using System;
 using WeatherApp.Models;
-using WeatherApp.Models;
 
 
 namespace WeatherApp.Controllers
@@ -27,12 +26,14 @@ namespace WeatherApp.Controllers
 		{
 			ViewBag.Title = Request.Form["zipcode"];
 			string zipcode = Request.Form["zipcode"];
-			WeatherContainer call = new WeatherContainer(zipcode);
-			double temperature = call.main.temp;
-			
-			ViewBag.Temperature = temperature;
+			WeatherApi call = new WeatherApi(zipcode);
 
-			return View( "Weather");
+				
+			
+
+
+
+			return View( "Weather", call);
 		}
 
 
@@ -43,10 +44,7 @@ namespace WeatherApp.Controllers
 			return View( );
 		}
 
-		public ActionResult Weather()
-		{
-			return View();
-		}
+		
 		
 		
 		//private static readonly HttpClient Client = new HttpClient( );

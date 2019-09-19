@@ -1,22 +1,17 @@
 ﻿@using WeatherApp.Models
-@model WeatherApp.Models.WeatherResponse
 
 
 <h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message @ViewBag.Temperature</h3>
+<h3>@ViewBag.Message</h3>
 
 
 <br />
 <br />
 <p>
-	@using ( Html.BeginForm("Index" , "Home" , FormMethod.Post) )
-	{
-
-	<p>Your zipcode: @Html.TextBoxFor(x => x.Zipcode)</p>
-	<input type="submit" value="Submit" />
-
-}
 
 
-	
-<p>The current temperature is @ViewBag.Temperature  F degrees.</p>
+	@model WeatherApi
+
+
+	<p>The current  is   F degrees.</p>
+	<p>The current temperature is @Model.Response.main.temp degrees.</p>
