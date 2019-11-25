@@ -342,3 +342,7 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+Properties/Resources.resx
+Properties/Resources.Designer.cs
+Properties/Resources.resx
+Properties/Resources.Designer.cs
