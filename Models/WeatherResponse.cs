@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace WeatherApp.Models
 {
@@ -24,5 +23,5 @@ namespace WeatherApp.Models
 		public string Zipcode { get; set; }
 
 	}
-	
+
 }
