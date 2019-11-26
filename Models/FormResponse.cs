@@ -4,23 +4,26 @@ namespace WeatherApp.Models
 {
 	public static class Repository
 	{
-		private static List<WeatherResponse> responses = new List<WeatherResponse>( );
+		private static List<FormResponse> responses = new List<FormResponse>( );
 
-		public static IEnumerable<WeatherResponse> Responses
+		public static IEnumerable<FormResponse> Responses
 		{
 			get { return responses; }
 		}
-		public static void AddResponse(WeatherResponse response)
+		public static void AddResponse(FormResponse response)
 		{
 			responses.Add(response);
 		}
 	}
 
-
-	public class WeatherResponse
+	
+	public class FormResponse
 	{
 		//[Required(ErrorMessage = "Please enter your zipcode")]
 		public string Zipcode { get; set; }
+
+		public ApiClient weatherData;
+
 
 	}
 

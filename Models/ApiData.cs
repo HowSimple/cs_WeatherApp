@@ -2,10 +2,9 @@
 
 namespace WeatherApp.Models
 {
-	public partial class WeatherApi
+	public class ApiData
 	{
-		public class ApiContainer
-		{
+		
 			public class Coord
 			{
 				public double lon { get; set; }
@@ -64,5 +63,5 @@ namespace WeatherApp.Models
 			public string name { get; set; }
 			public int cod { get; set; }
 		}
-	}
+	
 }

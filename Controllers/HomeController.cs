@@ -13,11 +13,11 @@ namespace WeatherApp.Controllers
 			return View( );
 		}
 		[HttpPost]
-		public ActionResult Index(WeatherResponse response)
+		public ActionResult Index(FormResponse response)
 		{
 			ViewBag.Title = "Weather Lookup";
 			string zipcode = Request.Form["zipcode"];
-			WeatherApi call = new WeatherApi(zipcode);
+			ApiClient call = new ApiClient(zipcode);
 
 			return View("Weather" , call);
 		}
